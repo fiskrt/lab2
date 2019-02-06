@@ -64,10 +64,12 @@ public class Level extends Observable {
                 getCurrentRoom().getRoomEast() == newRoom ||
                 getCurrentRoom().getRoomWest() == newRoom) {
 
+            currentRoom = newRoom;
             setChanged();
             notifyObservers(); // Notify others (in this case LevelGUI)
-            currentRoom = newRoom;
             //System.out.println("New room: " + newRoom.toString());
+        } else {
+            System.out.println("loll");
         }
     }
 
@@ -93,7 +95,7 @@ public class Level extends Observable {
 //    }
 
 
-    private boolean isOverlapping(Room r, int x, int y) {
+    private boolean isOverlapping(final Room r, final int x, final int y) {
         Rectangle r1 = new Rectangle(x, y, r.dx, r.dy);
         for (Room room : rooms) { // Loop through all rooms and see if any overlapp.
             Rectangle r2 = new Rectangle(room.x, room.y, room.dx, room.dy);

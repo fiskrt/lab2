@@ -18,7 +18,7 @@ public class LevelGUI implements Observer {
 
         JFrame frame = new JFrame(name);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        lv.addObserver(this); // Add this instance of class as an observer of Level.
+        lv.addObserver(this); // Add this instance of the class as an observer of Level.
 
 
         d = new Display(lv, x, y);
@@ -44,11 +44,6 @@ public class LevelGUI implements Observer {
             setFocusable(true);
         }
 
-        private void drawLine(Graphics g, double x1, double y1, double x2, double y2) {
-            g.drawLine((int) x1, (int) x2, (int) y1, (int) y2);
-        }
-
-
         private void drawLines(Graphics g, Room r) {
             if (r.getRoomNorth() != null) { // if there is a room in the north direction, draw a line to it.
                 g.drawLine(
@@ -63,8 +58,6 @@ public class LevelGUI implements Observer {
                         (int) (r.rect.getY() + r.rect.getHeight()),
                         (int) r.getRoomSouth().rect.getCenterX(),
                         (int) r.getRoomSouth().rect.getY());
-
-
             }
             if (r.getRoomEast() != null) {
                 g.drawLine(
@@ -95,16 +88,18 @@ public class LevelGUI implements Observer {
 
             drawLines(g, r);
 
-            ((Graphics2D) g).setStroke(oldStroke);
-            g.setColor(Color.BLACK);
+            ((Graphics2D) g).setStroke(oldStroke); // Reset pen size.
+            g.setColor(Color.BLACK); // Reset color.
         }
 
         private void drawBorder(Graphics g, Room r) {
             Stroke oldStroke = ((Graphics2D) g).getStroke();
-            ((Graphics2D) g).setStroke(new BasicStroke(4));
-            g.setColor(Color.cyan);
+            ((Graphics2D) g).setStroke(new BasicStroke(4)); // Increase stroke size.
+            g.setColor(Color.CYAN); // Set border color to cyan.
+
             ((Graphics2D) g).draw(r.rect);
-            ((Graphics2D) g).setStroke(oldStroke);
+            ((Graphics2D) g).setStroke(oldStroke); // Reset pen size.
+            g.setColor(Color.BLACK); // Reset color.
         }
 
         @Override
@@ -112,18 +107,18 @@ public class LevelGUI implements Observer {
             super.paintComponent(g);
 
             for (Room r : fp.getRooms()) {
-                if (r != fp.getCurrentRoom()) { // We will draw the current room lines last.
+                if (r != fp.getCurrentRoom()) { // We will draw the current room lines after.
                     drawLines(g, r);
                 }
             }
 
-            drawAllowedLines(g, fp.getCurrentRoom());
+            drawAllowedLines(g, fp.getCurrentRoom()); // Draw the green lines where you are allowed to move.
 
             for (Room r : fp.getRooms()) {
                 drawRoom(g, r);
             }
 
-            drawBorder(g, lv.getCurrentRoom());
+            drawBorder(g, lv.getCurrentRoom()); // Finally draw a border around the current room.
         }
 
 
@@ -140,8 +135,8 @@ public class LevelGUI implements Observer {
             @Override
             public void keyTyped(KeyEvent e) {
                 switch (Character.toLowerCase(e.getKeyChar())) {
-                    case 'w': // If you press 'UP' currentRoom is set to the north room.
-                        lv.setCurrentRoom(lv.getCurrentRoom().getRoomNorth());
+                    case 'w': // If you press 'w' key aka UP.
+                        lv.setCurrentRoom(lv.getCurrentRoom().getRoomNorth()); // Set current room to the northern one.
                         break;
                     case 's':
                         lv.setCurrentRoom(lv.getCurrentRoom().getRoomSouth());

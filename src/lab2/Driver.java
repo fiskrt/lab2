@@ -10,17 +10,16 @@ public class Driver {
 
 
     public void run() {
-
         Level level = new Level();
 
-        Room room1 = new Room(50, 50, Color.GREEN); // north
-        Room room2 = new Room(50, 50, Color.GREEN); // north
+        Room room1 = new Room(80, 50, Color.GREEN); // north
+        Room room2 = new Room(50, 50, Color.YELLOW); // north
         Room room3 = new Room(80, 50, Color.BLUE);  // south
         Room room4 = new Room(50, 50, Color.RED);
-        Room room5 = new Room(50, 50, Color.MAGENTA);
+        Room room5 = new Room(50, 70, Color.MAGENTA);
         Room room6 = new Room(50, 50, Color.PINK);
-        Room room8 = new Room(50, 50, Color.GREEN); // north
-        Room room9 = new Room(50, 50, Color.BLUE);  // south
+        Room room8 = new Room(50, 40, Color.ORANGE);
+        Room room9 = new Room(50, 50, Color.DARK_GRAY);
 
         // Place rooms on level..
         level.place(room1, 100, 100);
@@ -47,10 +46,8 @@ public class Driver {
         room1.connectWestTo(room5);
         room3.connectSouthTo(room6);
 
+        level.firstLocation(room1);
 
-        level.firstLocation(room3);
-
-        new LevelGUI(level, "co.ol", level.getMaxWidth(), level.getMaxHeight());
+        new LevelGUI(level, "cool", level.getMaxWidth(), level.getMaxHeight());
     }
-
 }

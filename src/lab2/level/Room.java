@@ -17,6 +17,7 @@ public class Room {
         this.color = color;
     }
 
+    @Override
     public String toString() {
         return "P(" + x + ", " + y + ")" + " D(" + dx + "x" + dy + ") Col: " + color.toString();
     }
