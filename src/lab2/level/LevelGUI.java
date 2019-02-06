@@ -49,11 +49,6 @@ public class LevelGUI implements Observer {
         }
 
 
-        private void drawLines2(Graphics g, Room r) {
-
-
-        }
-
         private void drawLines(Graphics g, Room r) {
             if (r.getRoomNorth() != null) { // if there is a room in the north direction, draw a line to it.
                 g.drawLine(
@@ -84,7 +79,6 @@ public class LevelGUI implements Observer {
                         (int) r.rect.getCenterY(),
                         (int) (r.getRoomWest().rect.getX() + r.getRoomWest().rect.getWidth()),
                         (int) r.getRoomWest().rect.getCenterY());
-
             }
         }
 
