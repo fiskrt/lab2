@@ -1,13 +1,11 @@
 package lab2.level;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Observable;
 import java.util.Observer;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 
 public class LevelGUI implements Observer {
@@ -26,7 +24,7 @@ public class LevelGUI implements Observer {
         d = new Display(lv, x, y);
         frame.getContentPane().add(d);
         frame.pack();
-        frame.setLocationRelativeTo(null); // Center screenlocation on startup.
+        frame.setLocationRelativeTo(null); // Center screen-location on startup.
         frame.setVisible(true);
     }
 
@@ -46,6 +44,16 @@ public class LevelGUI implements Observer {
             setFocusable(true);
         }
 
+        private void drawLine(Graphics g, double x1, double y1, double x2, double y2) {
+            g.drawLine((int) x1, (int) x2, (int) y1, (int) y2);
+        }
+
+
+        private void drawLines2(Graphics g, Room r) {
+
+
+        }
+
         private void drawLines(Graphics g, Room r) {
             if (r.getRoomNorth() != null) { // if there is a room in the north direction, draw a line to it.
                 g.drawLine(
@@ -60,6 +68,8 @@ public class LevelGUI implements Observer {
                         (int) (r.rect.getY() + r.rect.getHeight()),
                         (int) r.getRoomSouth().rect.getCenterX(),
                         (int) r.getRoomSouth().rect.getY());
+
+
             }
             if (r.getRoomEast() != null) {
                 g.drawLine(
@@ -74,6 +84,7 @@ public class LevelGUI implements Observer {
                         (int) r.rect.getCenterY(),
                         (int) (r.getRoomWest().rect.getX() + r.getRoomWest().rect.getWidth()),
                         (int) r.getRoomWest().rect.getCenterY());
+
             }
         }
 
@@ -126,7 +137,6 @@ public class LevelGUI implements Observer {
 
             @Override
             public void keyPressed(KeyEvent arg0) {
-
             }
 
             @Override
@@ -136,7 +146,7 @@ public class LevelGUI implements Observer {
             @Override
             public void keyTyped(KeyEvent e) {
                 switch (Character.toLowerCase(e.getKeyChar())) {
-                    case 'w':
+                    case 'w': // If you press 'UP' currentRoom is set to the north room.
                         lv.setCurrentRoom(lv.getCurrentRoom().getRoomNorth());
                         break;
                     case 's':

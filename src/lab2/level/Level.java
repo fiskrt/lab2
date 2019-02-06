@@ -32,7 +32,7 @@ public class Level extends Observable {
 
     public int getMaxHeight() {
         int maxSoFar = 0;
-        for (Room r : rooms) { // Loop through the rectangles and see whos Y-coord is max.
+        for (Room r : rooms) { // Loop through the rectangles and see which Y-coord is the greatest.
             if (r.rect.getMaxY() > maxSoFar) {
                 maxSoFar = (int) r.rect.getMaxY();
             }
@@ -42,7 +42,7 @@ public class Level extends Observable {
 
     public int getMaxWidth() {
         int maxSoFar = 0;
-        for (Room r : rooms) {
+        for (Room r : rooms) { // Loop through the rectangles and see which X-coord is the greatest.
             if (r.rect.getMaxX() > maxSoFar) {
                 maxSoFar = (int) r.rect.getMaxX();
             }
@@ -55,9 +55,10 @@ public class Level extends Observable {
     }
 
 
-    public void setCurrentRoom(Room newRoom) {
-        if (newRoom == null) // The new room is not connected.
+    void setCurrentRoom(Room newRoom) {
+        if (newRoom == null) { // If new room exists.
             return;
+        }
         if (getCurrentRoom().getRoomNorth() == newRoom || // If the new room is connected you are allowed to move.
                 getCurrentRoom().getRoomSouth() == newRoom ||
                 getCurrentRoom().getRoomEast() == newRoom ||
@@ -66,19 +67,17 @@ public class Level extends Observable {
             setChanged();
             notifyObservers(); // Notify others (in this case LevelGUI)
             currentRoom = newRoom;
-            System.out.println("New room: " + newRoom.toString());
-        } else {
-            System.out.println("Did not move rome!!!");
+            //System.out.println("New room: " + newRoom.toString());
         }
     }
 
-    public void resetCurrentRoom() {
+    void resetCurrentRoom() {
         setChanged();
         notifyObservers();
         currentRoom = rooms.get(0);
     }
 
-    public ArrayList<Room> getRooms() { // remove public?
+    ArrayList<Room> getRooms() {
         return this.rooms;
     }
 
